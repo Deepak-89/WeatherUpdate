@@ -15,7 +15,7 @@ app = Flask(__name__)
 @app.route('/webhook', methods=['POST'])
 def webhook():
     req = request.get_json(silent=True, force=True)
-    log(req)
+
     print("Request:")
     print(json.dumps(req, indent=4))
 
@@ -91,9 +91,10 @@ def makeWebhookResult(data):
         "source": "apiai-weather-webhook-sample"
     }
 
-def log(message):  # simple wrapper for logging to stdout on heroku
-    print str(message)
-    sys.stdout.flush()
-    
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.getenv('PORT', 5000))
+
+    print "Starting app on port %d" % port
+
+    app.run(debug=False, port=port, host='0.0.0.0')
