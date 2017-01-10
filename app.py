@@ -91,7 +91,10 @@ def makeWebhookResult(data):
         "source": "apiai-weather-webhook-sample"
     }
 
-
+def log(message):  # simple wrapper for logging to stdout on heroku
+    print str(message)
+    sys.stdout.flush()
+    
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
 
